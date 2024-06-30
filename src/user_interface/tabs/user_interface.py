@@ -10,6 +10,8 @@ import joblib
 # Load your saved model
 loaded_model = joblib.load("/app/src/models/trained_model.joblib")
 
+model_base = '/Users/drjosefhartmann/Development/Accidents/may24_bmlops_accidents/airflow/Volumes/models'
+data_base = '/data'
 
 def predict_model(features):
     input_df = pd.DataFrame([features])
@@ -18,11 +20,12 @@ def predict_model(features):
     return prediction
 
 
-title = "Make a Prediction"
-sidebar_name = "predictions"
+title = "GreenLightServices - Make a Prediction"
+sidebar_name = "User Interface"
 
 url_prediction = "http://model_api_from_compose:8000/predict"
 
+X_train = pd.read_csv(data_base + '/preprocessed/X_train.csv')
 
 ## Definitions
 # the number of features required to make a prediction
@@ -30,13 +33,13 @@ features = {
     "place": 10,
     "catu": 3,
     "sexe": 1,
-    "secu1": 0.0,
+    "secu1": 0,     #
     "year_acc": 2021,
-    "victim_age": 60,
+    "victim_age": 60,  #
     "catv": 2,
     "obsm": 1,
     "motor": 1,
-    "catr": 3,
+    "catr": 3,          #
     "circ": 2,
     "surf": 1,
     "situ": 1,
@@ -45,48 +48,79 @@ features = {
     "mois": 12,
     "lum": 5,
     "dep": 77,
-    "com": 77317,
+    "com": 77317,    #
     "agg_": 2,
     "int": 1,
     "atm": 0,
-    "col": 6,
-    "lat": 48.60,
-    "long": 2.89,
+    "col": 6,         #
+    "lat": 48.6098,     #
+    "long": 2.30604,     #
     "hour": 17,
     "nb_victim": 2,
     "nb_vehicules": 1,
 }
 
+feature_en = {
+    "place": 'Seat occupied',
+    "catu": 'User category',
+    "sexe": 'Gender',
+    "secu1": 'Safety equipment',     #
+    "year_acc": 'Year',
+    "victim_age": 'Age of victim',  #
+    "catv": 'Vehicle category',
+    "obsm": 'Mobile obstacle hit',
+    "motor": 'Type of  engine',
+    "catr": 'Road category ',          #
+    "circ": 'Traffic regime',
+    "surf": 'Surface condition',
+    "situ": 'Accident situation',
+    "vma": 'Max allowed speed',
+    "jour": 'Day',
+    "mois": 'Month',
+    "lum": 'Light Conditions',
+    "dep": 'Department',
+    "com": 'Community ',
+    "agg_": 'Rural/Urban',
+    "int": 'Intersection',
+    "atm": 'Atmosph. conditions',
+    "col": 'Type of collision',         #
+    "lat": 'Latitude',     #
+    "long": 'Longitude',     #
+    "hour": 'Hour',
+    "nb_victim": 'Number of victims',
+    "nb_vehicules": 'Number of vehicles',
+}
+
 # here we define the number of core features we want to present for prediction
 core_features = {
-    "place": 10,
-    "catu": 3,
-    "sexe": 1,
+    # "place": 10,
+    # "catu": 3,
+    # "sexe": 1,
     "secu1": 0.0,
-    "year_acc": 2021,
+    # "year_acc": 2021,
     "victim_age": 60,
     "catv": 2,
-    "obsm": 1,
-    "motor": 1,
+    # "obsm": 1,
+    # "motor": 1,
     "catr": 3,
-    "circ": 2,
-    "surf": 1,
-    "situ": 1,
+    # "circ": 2,
+    # "surf": 1,
+    # "situ": 1,
     "vma": 50,
     "jour": 7,
     "mois": 12,
-    "lum": 5,
-    "dep": 77,
-    "com": 77317,
-    "agg_": 2,
-    "int": 1,
-    "atm": 0,
+    # "lum": 5,
+    # "dep": 77,
+    # "com": 77317,
+    # "agg_": 2,
+    # "int": 1,
+    # "atm": 0,
     "col": 6,
-    "lat": 48.60,
-    "long": 2.89,
+    # "lat": 48.60,
+    # "long": 2.89,
     "hour": 17,
-    "nb_victim": 2,
-    "nb_vehicules": 1,
+    # "nb_victim": 2,
+    # "nb_vehicules": 1,
 }
 
 
@@ -109,8 +143,14 @@ def input_feature(feature):
     this is required to build the three input columns with flexible number of rows
     depending on the number of core features 
     '''
-    st.write(f"**'{feature}'**, default value: {features[feature]}")
-    value = st.number_input(feature, label_visibility="collapsed", value = new_features[feature])
+    # lookup values 
+    options = list(X_train[feature].unique())
+    options.sort()
+    idx = options.index(features[feature])
+    
+    st.write(f"**'{feature_en[feature]}'**, Default: {features[feature]}")
+    value = st.number_input(feature_en[feature],label_visibility="collapsed", value = new_features[feature])
+    # value = st.selectbox(feature_en[feature], options = options, label_visibility="collapsed", index = idx)
     return value
 
 # default the new features to the default features in order to have a feasible start configuration
@@ -123,6 +163,9 @@ def run():
     # settings
     global new_features
     global features
+
+    
+    X_cols = X_train.columns.tolist()
     
     st.title(title)
 
@@ -147,6 +190,7 @@ def run():
         if st.button("Use Default"):
             for key, value in features.items():
                 new_features[key] = value
+        st.write('Default:')
     with col2: 
         if st.button("Make Prediction"):
             if check_inputs(new_features): 

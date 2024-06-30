@@ -4,8 +4,22 @@ from sklearn import ensemble
 import joblib
 import numpy as np
 import os
+import shutil
 from src.data.check_structure import mv_existing_file_archive
 
+model_base = '/Users/drjosefhartmann/Development/Accidents/may24_bmlops_accidents/airflow/Volumes/models'
+data_base = '/Users/drjosefhartmann/Development/Accidents/may24_bmlops_accidents/airflow/Volumes/data'
+
+
+def push_to_production():
+    mv_existing_file_archive(model_base)
+    source = model_base + "new/trained_model.joblib"
+    destination = model_base + "trained_model.joblib"
+    shutil.move(source, destination)
+    print("Model pushed successfully.")
+    # reload model in UI
+    print("Model reloaded successfully in UI.")
+    
 def Train_Model():
     print(joblib.__version__, os.getcwd())
     #execute from may24_BMLOPS_ACCIDENTS/src/models folder!
@@ -29,12 +43,9 @@ def Train_Model():
     # --Save the trained model to a file
     #execute from may24_BMLOPS_ACCIDENTS folder!
     
-    model_filename =  model_base + "/trained_model.joblib"
+    model_filename =  model_base + "/new/trained_model.joblib"
     #execute from may24_BMLOPS_ACCIDENTS/src/models folder!
     # model_filename = "../../Volumes/models/trained_model.joblib"
-
-
-    mv_existing_file_archive(model_base)
 
     joblib.dump(rf_classifier, model_filename)
     print("Model trained and saved successfully.")

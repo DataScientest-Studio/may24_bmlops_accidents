@@ -53,6 +53,14 @@ services:
   UI:
     image: model_ui:latest
     container_name: model_ui_from_compose
+    volumes:
+      - ./Volumes/data:/app/data
+      - ./Volumes/models:/app/models
+      - ./Volumes/data/raw:/app/data/raw
+      - ./Volumes/data/processed:/app/data/processed
+      - ./Volumes/data/preprocessed/archive:/app/data/preprocessed/archive
+      - ./Volumes/models/archive:/app/models/archive
+      
     ports:
       - "8002:8000"
       - "8501:8501"

@@ -1,0 +1,2 @@
+export AIRFLOW_HOME=/Users/drjosefhartmann/Development/Accidents/may24_bmlops_accidents/airflow
+airflow standalone

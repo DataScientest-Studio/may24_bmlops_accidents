@@ -5,7 +5,7 @@ from PIL import Image
 import config
 
 
-from tabs import predictions, intro, service, bugs
+from tabs import user_interface, intro, service_platform, api, updates, training, evaluation, ci_cd, monitoring
 
 st.set_page_config(
     page_title=config.TITLE
@@ -23,9 +23,14 @@ TABS = {}
 TABS = OrderedDict(
     [
         (intro.sidebar_name, intro),
-        (predictions.sidebar_name, predictions),
-        (service.sidebar_name, service),
-        (bugs.sidebar_name, bugs),
+        (service_platform.sidebar_name, service_platform),
+        (api.sidebar_name, api),
+        (user_interface.sidebar_name, user_interface),
+        (updates.sidebar_name, updates),
+        (training.sidebar_name, training),
+        (evaluation.sidebar_name, evaluation),
+        (ci_cd.sidebar_name, ci_cd),
+        (monitoring.sidebar_name, monitoring),
     ]
 )
 

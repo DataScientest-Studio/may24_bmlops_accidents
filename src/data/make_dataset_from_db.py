@@ -88,8 +88,8 @@ def process_data(output_folderpath, users_table="users", caract_table="caracteri
     #--Grouping modalities 
     dico = {1:0, 2:1, 3:1, 4:1, 5:1, 6:1,7:1, 8:0, 9:0}
     df_caract["atm"] = df_caract["atm"].replace(dico)
-    catv_value = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,30,31,32,33,34,35,36,37,38,39,40,41,42,43,50,60,80,99]
-    catv_value_new = [0,1,1,2,1,1,6,2,5,5,5,5,5,4,4,4,4,4,3,3,4,4,1,1,1,1,1,6,6,3,3,3,3,1,1,1,1,1,0,0]
+    catv_value =     [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,30,31,32,33,34,35,36,37,38,39,40,41,42,43,50,60,80,99]
+    catv_value_new = [0,1,1,2,1,1,6,2,5,5,5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 4, 4, 1, 1, 1, 1, 1, 6, 6, 3, 3, 3, 3, 1, 1, 1, 1, 1, 0, 0]
     df_veh['catv'].replace(catv_value, catv_value_new, inplace = True)
 
     #--Merging datasets 

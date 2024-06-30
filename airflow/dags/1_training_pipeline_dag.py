@@ -9,6 +9,17 @@ from airflow.operators.dummy import DummyOperator
 from airflow.utils.dates import days_ago
 from airflow.utils.timezone import datetime
 
+from airflow.decorators import task
+from airflow.operators.email import EmailOperator
+
+from evaluate import evaluate
+
+from train_model import Train_Model, push_to_production
+
+from make_dataset_from_db import process_data
+
+from model_evaluation import evaluate_model
+
 import sys
 # the path to our source code directories
 sys.path.append('/Users/drjosefhartmann/Development/Accidents/may24_bmlops_accidents/src/data')
@@ -19,11 +30,7 @@ print(cwd)
 sys_path = sys.path
 print(sys_path)
 
-from train_model import Train_Model
 
-from make_dataset_from_db import process_data
-
-from evaluate import evaluate
 
 # from cd4ml.data_processing import ingest_data
 # from cd4ml.data_processing import split_train_test
@@ -103,28 +110,26 @@ with dag:
 
     )
     # 4. Validate model 
-    # model_validation = BranchPythonOperator(
-    #     task_id='model_validation',
-    #     python_callable=validate_model,
-    #     op_kwargs={
-    #         'data_files': _data_files,
-    #         'model': _model_name
-    #     },
-    # )
+    
+    @task.branch(task_id="branch_task")
+    def branch_func(ti=None):
+        validation= evaluate_model()
+        if not validation:
+            return "stop_task"
+        else:
+            return "push_to_production"
+        
 
-    # stop = DummyOperator(
-    #     task_id='keep_old_model',
-    #     dag=dag,
-    #     trigger_rule="all_done",
-    # )
+    stop_task = DummyOperator(
+        task_id='stop_task',
+        trigger_rule="all_done",
+    )
 
     # 5. push model 
-    # push_to_production = PythonOperator(
-    #     task_id='push_new_model',
-    #     python_callable=push_model,
-    #     op_kwargs={
-    #         'model': _model_name
-    #     },
-    # )
+    push_production = PythonOperator(
+        task_id='push_production',
+        python_callable=push_to_production,
 
-    data_transformation >> model_training >> model_metrics  
+    )
+
+    data_transformation >> model_training >> model_metrics  >> branch_func() >> [stop_task, push_production]
