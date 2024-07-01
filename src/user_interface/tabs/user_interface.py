@@ -11,8 +11,9 @@ import joblib
 loaded_model = joblib.load("/app/src/models/trained_model.joblib")
 
 model_base = '/Users/drjosefhartmann/Development/Accidents/may24_bmlops_accidents/airflow/Volumes/models'
-data_base = '/data'
-
+# data_base = '/data'
+data_base = '/app/airflow/Volumes/data'
+# data_base = '/Users/drjosefhartmann/Development/Accidents/may24_bmlops_accidents/airflow/Volumes/data'
 def predict_model(features):
     input_df = pd.DataFrame([features])
     print(input_df)
@@ -22,6 +23,11 @@ def predict_model(features):
 
 title = "GreenLightServices - Make a Prediction"
 sidebar_name = "User Interface"
+
+
+# make post request to login
+# get token
+# use token in the predict request to get prediction values. 
 
 url_prediction = "http://model_api_from_compose:8000/predict"
 
