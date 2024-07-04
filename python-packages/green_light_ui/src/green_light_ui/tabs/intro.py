@@ -16,24 +16,24 @@ def run():
     st.markdown(
         """
         ### Project Description
-        In this project we intend to demonstrate core MLOPS approaches, processes and tools.
+        In this project we intend to demonstrate core MLOps approaches, processes and tools.
         
-        We demonstrate this by using a given model, treating 
-        the datascience part as solved,  focusing on the MLOPS part of providing a service based on an ML-Model. 
+        We do so by using a given model with its predictions and evaluations
+        and solemly focusing on the MLOps part of providing a service based on an ML-Model. 
         
         As scenario we use a hypothetical service provider 'GreenLightService' that offers the service of predicting 
         the gravity of an accident in France. 
         
         The core components of this service are:
        
-        - **Service Platform** to provide the service based on a Docker environment
-        - **Secured API** with unit testing
+        - **Service Platform** to provide the service running in docker-compose
+        - **Secured API** with a Prediction endpoint accessed via User Authentication and Authorization (Unit Testing)
         - **User Interface** to make predictions based on the ML Model
-        - **Supervised Folders for Data Intake** to catch new data coming in 
+        - **Data Ingestion with Airflow** to extract, transform and load new data coming in every year
         - **Automated Training** of the model to include the new data in the predictions
         - **Automated Model Evaluation** to ensure performance of the model
-        - **Automated CI/CD processes** to ensure consistent development quality of software components
-        - **Service Monitoring** to monitor the service availability
+        - **Automated CI/CD processes** to ensure consistent integration and development quality of our work
+        - **Service Monitoring** Implemented monitoring tools to track our models performance
         ...
         """
         

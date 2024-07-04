@@ -22,8 +22,6 @@ sidebar_name = "User Interface"
 
 
 
-
-
 ## Definitions
 
 # Stuff for the UI-Layout to input the features

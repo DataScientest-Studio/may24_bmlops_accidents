@@ -5,7 +5,17 @@ Config file for Streamlit App
 """
 
 from member import Member
+import os
+from dotenv import load_dotenv
+from member import Member
 
+# Load environment variables from .env file
+load_dotenv()
+
+TITLE = "MLOPS Bootcamp - May 24"
+
+ADMIN_USERNAME = os.getenv("ADMIN_USERNAME")
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
 
 TITLE = "MLOPS Bootcamp - May 24"
 
