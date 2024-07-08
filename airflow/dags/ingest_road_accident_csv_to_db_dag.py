@@ -160,20 +160,32 @@ with DAG(
         timeout=datetime.timedelta(hours=24),
         retry_delay=datetime.timedelta(seconds=60),
         retries=10,
+        email_on_failure=True,
+        email="road.accidents.mlops.may24@gmail.com"
     )
 
-    init_db_task = PythonOperator(task_id="init_db_task", python_callable=task_init_db)
+    init_db_task = PythonOperator(
+        task_id="init_db_task", 
+        python_callable=task_init_db,
+        email_on_failure=True,
+        email="road.accidents.mlops.may24@gmail.com"
+    )
 
     add_new_road_accidents_csvs_to_db_task = PythonOperator(
         task_id="process_new_road_accidents_csv_task",
         python_callable=task_process_new_road_accidents_csvs,
-        trigger_rule='all_success'
+        trigger_rule='all_success',
+        email_on_failure=True,
+        email="road.accidents.mlops.may24@gmail.com"    
     )
 
     set_the_airflow_db_updated_variable_task = PythonOperator(
         task_id="set_the_airflow_variable_db_updated_ts_task",
         python_callable=task_update_variable_new_road_accidents_data_timestamp,
-        trigger_rule='all_success'
+        trigger_rule='all_success',
+        email_on_failure=True,
+        email="road.accidents.mlops.may24@gmail.com"
+
     )
     
 

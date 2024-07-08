@@ -23,11 +23,14 @@ x-airflow-common:
     # yamllint enable rule:line-length
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
 
-    # AIRFLOW__SMTP__SMTP_HOST: "smtp.gmail.com"
-    # AIRFLOW__SMTP__SMTP_PORT: 587
-    # AIRFLOW__SMTP__SMTP_USER: "de.airflow@gmail.com"
-    # AIRFLOW__SMTP__SMTP_PASSWORD: "cfsrvkongsobheta"
-    # AIRFLOW__SMTP__SMTP_MAIL_FROM: "de.airflow@gmail.com"
+    AIRFLOW__SMTP__SMTP_STARTTLS: "False"
+    AIRFLOW__SMTP__SMTP_SSL: "False"
+    AIRFLOW__SMTP__SMTP_HOST: "smtp.gmail.com"
+    AIRFLOW__SMTP__SMTP_PORT: 587
+    AIRFLOW__SMTP__SMTP_USER: "road.accidents.mlops.may24@gmail.com"
+    AIRFLOW__SMTP__SMTP_PASSWORD: "zdfe xsig vpfb dezv"
+    AIRFLOW__SMTP__SMTP_MAIL_FROM: "road.accidents.mlops.may24@gmail.com"
+
     ADMIN_USERNAME: ${ADMIN_USERNAME}
     ADMIN_PASSWORD: ${ADMIN_PASSWORD}
     ROAD_ACCIDENTS_POSTGRES_HOST: ${ROAD_ACCIDENTS_POSTGRES_HOST}
