@@ -23,7 +23,7 @@ Green Light Services represents our final project for the DataScientest MLOps Pr
 
 The Green Light Services is a web application that uses microservices and runs on [Docker compose](https://docs.docker.com/compose/). The following figure summarizes the architecture of the Green Light Services application:
 
-![Green Light Services architecture](./python-packages/green_light_ui/src/green_light_ui/assets/ServicePlatform.png)
+![Green Light Services architecture](./python-packages/green_light_ui/src/green_light_ui/assets/Architecture_final.png)
 <p align="center">
     <b>Figure 1.</b> The Green Light Services architecture.
 </p>
