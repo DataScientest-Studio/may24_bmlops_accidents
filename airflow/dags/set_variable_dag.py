@@ -26,7 +26,7 @@ def print_date_and_hello_again():
 with DAG(
     dag_id="my_set_variable_dag",
     description="A DAG to set a variable",
-    tags=["road_accidents", "data_ingestion"],
+    tags=["examples"],
     schedule_interval=None,
     default_args={
         "owner": "airflow",

@@ -164,6 +164,7 @@ This script will:
 - Start the docker compose application by running `DOCKER_BUILDKIT=1 docker compose up -d`
 - Start the `MLFlow` [server](http://127.0.0.1:5000/)
 
+Then navigate to the `Green Light Services` UI by following this [link](http://localhost:8501/).
 
 ### Running the App Using a Specific Released Version
 

@@ -20,7 +20,7 @@ def read_and_print_airflow_variable():
 with DAG(
     dag_id='read_variable_dag',
     description='A DAG to read a variable, used for development only. Feel free to remove.',
-    tags=["road_accidents", "data_ingestion"],
+    tags=["examples"],
     schedule_interval=None,
     default_args={
         'owner': 'airflow',

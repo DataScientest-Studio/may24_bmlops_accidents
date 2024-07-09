@@ -21,7 +21,7 @@ with DAG(
     schedule_interval=timedelta(days=1),
     start_date=datetime(2023, 1, 1),
     catchup=False,
-    tags=["road_accidents", "data_ingestion"],
+    tags=["examples"],
 ) as dag:
 
     t1 = BashOperator(
